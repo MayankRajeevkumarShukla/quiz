@@ -108,11 +108,11 @@
     <div class="login">
         <h1>Login</h1>
         <input type="text" id="username" placeholder="Username" required>
-        <input type="password" id="password" placeholder="Password" required>
+        <input type="number" id="password" placeholder="Roll Number" required>
         <button id="login-btn">Submit</button>
     </div>
 
-    <div class="app">
+    <div class="app" style="display: none;">
         <h1>QUIZ</h1>
         <div class="quiz">
             <h2 id="questions">Question goes here</h2>
@@ -221,6 +221,14 @@
         function showScore() {
             resetState();
             questionElement.innerHTML = `You scored ${score} out of ${questions.length}!`;
+            console.log('Final Score:', score); // Log the score to the console
+            
+            // Store username, roll number, and score in localStorage
+            const username = localStorage.getItem('username');
+            const rollNumber = localStorage.getItem('rollNumber');
+            localStorage.setItem('score', score);
+            console.log('Stored:', { username, rollNumber, score });
+
             nextButton.innerHTML = "Play Again";
             nextButton.style.display = "block";
         }
@@ -244,6 +252,17 @@
 
         // Handle login button click
         document.getElementById('login-btn').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const rollNumber = document.getElementById('password').value;
+
+            // Log the username and roll number to the console
+            console.log('Username:', username);
+            console.log('Roll Number:', rollNumber);
+
+            // Store username and roll number in localStorage
+            localStorage.setItem('username', username);
+            localStorage.setItem('rollNumber', rollNumber);
+
             // Here you can add validation logic for username/password
             document.querySelector('.login').style.display = 'none';
             document.querySelector('.app').style.display = 'block';
